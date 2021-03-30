@@ -1,12 +1,9 @@
-// array should be populated whenever user clicks on corresponding div 
-
 // Plan player rounds - X goes first, O goes second
-// Add event listeners to occupy the array when div is clicked
-//Can't occupy same array with two different symbols 
+// Add a function to swap between rounds - first is X, second is O
 
 const gameBoard = (() => {
   let board = new Array(9).fill(null);
-  const createBoard = (() => {
+  const renderBoard = (() => {
     const gridContainer = document.querySelector(".grid-container")
     let i = 0
     for (i=0; i < board.length; i++) {
@@ -31,9 +28,13 @@ const displayController = (() => {
   const populateBoard = (() => {
     const allFields = document.querySelectorAll(".container")
     allFields.forEach(field => {
-     field.addEventListener("click", () => {
-      gameBoard.board[field.dataset.index] = "X"
-      field.innerHTML = gameBoard.board[field.dataset.index];
+      field.addEventListener("click", () => {
+      if (gameBoard.board[field.dataset.index] === null) {
+        gameBoard.board[field.dataset.index] = "X"
+        field.innerHTML = gameBoard.board[field.dataset.index];
+      } else {
+        return;
+      }
       })
     })
   })()
