@@ -1,8 +1,3 @@
-// Plan player rounds - X goes first, O goes second
-// Add a function to swap between rounds - first is X, second is O
-
-// To make rounds toggle true / false after X choice
-
 const gameBoard = (() => {
   let board = new Array(9).fill(null);
   const renderBoard = (() => {
@@ -57,7 +52,7 @@ const gameBoard = (() => {
     board[5] == "X" &&
     board[8] == "X"
     ) {
-      console.log("luv X")
+      console.log("luv x")
     } else if (board[0] == "O" &&
     board[1] == "O" &&
     board[2] == "O" ||
@@ -95,7 +90,7 @@ const gameBoard = (() => {
     board[5] == "O" &&
     board[8] == "O") 
     {
-      console.log("Luv O")
+      true
     }
 
   }
@@ -123,23 +118,46 @@ const displayController = (() => {
         player2.round = !player2.round
         field.innerHTML = gameBoard.board[field.dataset.index];
         gameBoard.winningCombination()
-        console.log(field.dataset.index)
       } else {
         return;
       }
       })
     })
   })()
-  
+
+  const winGame = () => {
+    if (gameBoard.winningCombination())
+    {
+
+    }
+  }
+
+
 })();
 
 const Player = (name, symbol, round) => {
+  const won = () => {
+    if (gameBoard.winningCombination) {
+      console.log(won)
+    } else {
+      false;
+    }
+  }
+  
   return {
     name,
     symbol,
-    round
+    round, // true defines who starts first
+    won
   }
 };
 
 const player1 = Player ("Patryk", "X", true);
 const player2 = Player ("Marino", "O", false);
+
+
+// Jeżeli symbol jest na danych pozycjach arr, to true
+// Puścić symbol do winning combination
+// winning combination tylko bierze symbol, a faktycznie implementuje go Player Factory
+// Jeśli Symbol z Player Factory sie zgadza, zwróć true 
+// Jeśli true, triggeruje odpowiednie mechanizmy w displayController
