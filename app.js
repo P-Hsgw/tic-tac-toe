@@ -103,7 +103,10 @@ const displayController = (() => {
       displayResult.innerHTML = `The winner is... ${player2.name}`
       gameEnded = true;
     }
-
+    if (gameBoard.board.every(symbol => symbol != null)) {
+      displayResult.innerHTML = `It's a tie`
+      gameEnded = true;
+    }
   }
 })();
 
@@ -117,12 +120,3 @@ const Player = (name, symbol, round) => {
 
 const player1 = Player ("Patryk", "X", true);
 const player2 = Player ("Marino", "O", false);
-
-
-// Jeżeli symbol jest na danych pozycjach arr, to true
-// Puścić symbol do winning combination
-// winning combination tylko bierze symbol, a faktycznie implementuje go Player Factory
-// Jeśli Symbol z Player Factory sie zgadza, zwróć true 
-// Jeśli true, triggeruje odpowiednie mechanizmy w displayController
-
-// Dodać funkcje - jeśleli Player wygrywa, to zwróć player name i napisz że wygrał dany gracz
