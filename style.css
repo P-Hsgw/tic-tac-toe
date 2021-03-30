@@ -1,8 +1,4 @@
-.field {
- border-style: solid; 
- width: 100%; 
- height:  100%;
-}
+
 
 .grid-container {
   display: grid;
@@ -10,13 +6,24 @@
   grid-template-rows: 1fr 1fr 1fr;
   gap: 0px 0px;
   grid-template-areas:
-    "one four seven"
-    "two five eight"
-    "three six nine";
+    "container_0 container_3 container_6"
+    "container_1 container_4 container_7"
+    "container_2 container_5 container_8";
   width: 30vw;
   height: 30vw;
   border-style: solid;
 }
+
+.container {
+  border-style: solid; 
+  width: 100%; 
+  height:  100%;
+  text-align: center;
+  font-size: x-large;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ }
 
 .one { grid-area: one;}
 
