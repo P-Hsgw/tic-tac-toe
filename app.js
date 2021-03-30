@@ -14,85 +14,48 @@ const gameBoard = (() => {
     }
   })();
 
-  const winningCombination = () => {
-    if (board[0] == "X" &&
-    board[1] == "X" &&
-    board[2] == "X" ||
-    board[3] == "X" &&
-    board[4] == "X" &&
-    board[5] == "X" ||
-    board[6] == "X" &&
-    board[7] == "X" &&
-    board[8] == "X" ||
-    board[0] == "X" &&
-    board[3] == "X" &&
-    board[6] == "X" ||
-    board[1] == "X" &&
-    board[4] == "X" &&
-    board[7] == "X" ||
-    board[2] == "X" &&
-    board[5] == "X" &&
-    board[8] == "X" ||
-    board[0] == "X" &&
-    board[4] == "X" &&
-    board[8] == "X" ||
-    board[2] == "X" &&
-    board[4] == "X" &&
-    board[6] == "X" ||
-    board[6] == "X" &&
-    board[7] == "X" &&
-    board[8] == "X" ||
-    board[0] == "X" &&
-    board[3] == "X" &&
-    board[6] == "X" ||
-    board[1] == "X" &&
-    board[4] == "X" &&
-    board[7] == "X" ||
-    board[2] == "X" &&
-    board[5] == "X" &&
-    board[8] == "X"
+  let winningCombination = (symbol) => {
+    if (board[0] === symbol &&
+    board[1] === symbol &&
+    board[2] === symbol ||
+    board[3] === symbol &&
+    board[4] === symbol &&
+    board[5] === symbol ||
+    board[6] === symbol &&
+    board[7] === symbol &&
+    board[8] === symbol ||
+    board[0] === symbol &&
+    board[3] === symbol &&
+    board[6] === symbol ||
+    board[1] === symbol &&
+    board[4] === symbol &&
+    board[7] === symbol ||
+    board[2] === symbol &&
+    board[5] === symbol &&
+    board[8] === symbol ||
+    board[0] === symbol &&
+    board[4] === symbol &&
+    board[8] === symbol ||
+    board[2] === symbol &&
+    board[4] === symbol &&
+    board[6] === symbol ||
+    board[6] === symbol &&
+    board[7] === symbol &&
+    board[8] === symbol ||
+    board[0] === symbol &&
+    board[3] === symbol &&
+    board[6] === symbol ||
+    board[1] === symbol &&
+    board[4] === symbol &&
+    board[7] === symbol ||
+    board[2] === symbol &&
+    board[5] === symbol &&
+    board[8] === symbol
     ) {
-      console.log("luv x")
-    } else if (board[0] == "O" &&
-    board[1] == "O" &&
-    board[2] == "O" ||
-    board[3] == "O" &&
-    board[4] == "O" &&
-    board[5] == "O" ||
-    board[6] == "O" &&
-    board[7] == "O" &&
-    board[8] == "O" ||
-    board[0] == "O" &&
-    board[3] == "O" &&
-    board[6] == "O" ||
-    board[1] == "O" &&
-    board[4] == "O" &&
-    board[7] == "O" ||
-    board[2] == "O" &&
-    board[5] == "O" &&
-    board[8] == "O" ||
-    board[0] == "O" &&
-    board[4] == "O" &&
-    board[8] == "O" ||
-    board[2] == "O" &&
-    board[4] == "O" &&
-    board[6] == "O" ||
-    board[6] == "O" &&
-    board[7] == "O" &&
-    board[8] == "O" ||
-    board[0] == "O" &&
-    board[3] == "O" &&
-    board[6] == "O" ||
-    board[1] == "O" &&
-    board[4] == "O" &&
-    board[7] == "O" ||
-    board[2] == "O" &&
-    board[5] == "O" &&
-    board[8] == "O") 
-    {
-      true
+      return true
+    } else {
+      return false
     }
-
   }
 
   return {
@@ -117,7 +80,8 @@ const displayController = (() => {
         player1.round = !player1.round
         player2.round = !player2.round
         field.innerHTML = gameBoard.board[field.dataset.index];
-        gameBoard.winningCombination()
+        checkWinner()
+        
       } else {
         return;
       }
@@ -125,31 +89,26 @@ const displayController = (() => {
     })
   })()
 
-  const winGame = () => {
-    if (gameBoard.winningCombination())
-    {
-
+  const checkWinner =() => {
+    if (gameBoard.winningCombination(player1.symbol)) {
+      console.log (`Working ${player1.name}`)
     }
+    if (gameBoard.winningCombination(player2.symbol)) {
+      console.log (`Working ${player2.name}`)
+    }
+
   }
 
 
 })();
 
 const Player = (name, symbol, round) => {
-  const won = () => {
-    if (gameBoard.winningCombination) {
-      console.log(won)
-    } else {
-      false;
-    }
-  }
-  
   return {
     name,
     symbol,
     round, // true defines who starts first
-    won
-  }
+
+  };
 };
 
 const player1 = Player ("Patryk", "X", true);
@@ -161,3 +120,5 @@ const player2 = Player ("Marino", "O", false);
 // winning combination tylko bierze symbol, a faktycznie implementuje go Player Factory
 // Jeśli Symbol z Player Factory sie zgadza, zwróć true 
 // Jeśli true, triggeruje odpowiednie mechanizmy w displayController
+
+// Dodać funkcje - jeśleli Player wygrywa, to zwróć player name i napisz że wygrał dany gracz
