@@ -66,11 +66,13 @@ const gameBoard = (() => {
 })();
 
 const displayController = (() => {
+  let gameEnded = false;
+
   const populateBoard = (() => {
     const allFields = document.querySelectorAll(".container")
     allFields.forEach(field => {
       field.addEventListener("click", () => {
-      if (gameBoard.board[field.dataset.index] === null) {
+      if (gameBoard.board[field.dataset.index] === null && gameEnded === false) {
         if (player1.round) {
           gameBoard.board[field.dataset.index] = "X"
         }
@@ -81,6 +83,7 @@ const displayController = (() => {
         player2.round = !player2.round
         field.innerHTML = gameBoard.board[field.dataset.index];
         checkWinner()
+        console.log(gameEnded)
         
       } else {
         return;
@@ -90,16 +93,18 @@ const displayController = (() => {
   })()
 
   const checkWinner =() => {
+    
+    const displayResult = document.getElementById("result")
     if (gameBoard.winningCombination(player1.symbol)) {
-      console.log (`Working ${player1.name}`)
+      displayResult.innerHTML = `The winner is... ${player1.name}`
+      gameEnded = true;
     }
     if (gameBoard.winningCombination(player2.symbol)) {
-      console.log (`Working ${player2.name}`)
+      displayResult.innerHTML = `The winner is... ${player2.name}`
+      gameEnded = true;
     }
 
   }
-
-
 })();
 
 const Player = (name, symbol, round) => {
@@ -107,7 +112,6 @@ const Player = (name, symbol, round) => {
     name,
     symbol,
     round, // true defines who starts first
-
   };
 };
 
