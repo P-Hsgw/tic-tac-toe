@@ -1,4 +1,8 @@
-
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 .grid-container {
   display: grid;
@@ -25,20 +29,20 @@
   align-items: center;
  }
 
-.one { grid-area: one;}
+.container_0 { grid-area: container_0;}
 
-.two { grid-area: two; }
+.container_1 { grid-area: container_1; }
 
-.three { grid-area: three; }
+.container_2 { grid-area: container_2; }
 
-.four { grid-area: four; }
+.container_3 { grid-area: container_3; }
 
-.five { grid-area: five; }
+.container_4 { grid-area: container_4; }
 
-.six { grid-area: six; }
+.container_5 { grid-area: container_5; }
 
-.seven { grid-area: seven; }
+.container_6 { grid-area: container_6; }
 
-.eight { grid-area: eight; }
+.container_7 { grid-area: container_7; }
 
-.nine { grid-area: nine; }
+.container_8 { grid-area: container_8; }
