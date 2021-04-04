@@ -15,7 +15,7 @@ const gameBoard = (() => {
     }
   };
 
-  renderBoard()
+  renderBoard();
 
   // Return true if winning combination is met
   let winningCombination = (symbol) => {
@@ -42,7 +42,7 @@ const gameBoard = (() => {
   return {
     board,
     winningCombination,
-    renderBoard
+    renderBoard,
   };
 })();
 
@@ -77,7 +77,6 @@ const displayController = (() => {
   const displayResult = document.getElementById("result");
   // Check if winningCombination is met. If yes - returns innerHTML and gameEnded = true
   const checkWinner = () => {
-    
     if (gameBoard.winningCombination(player1.symbol)) {
       displayResult.innerHTML = `The winner is... ${player1.name}`;
       gameEnded = true;
@@ -92,31 +91,26 @@ const displayController = (() => {
     }
   };
 
-  const handleButtons = (() => {
-    const resetbtn = document.getElementById("btn_reset")
-    const gridContainer = document.getElementById("grid-container")
-    const box = document.querySelector(".container")
+  // Add reset button logic
+  const resetbtn = document.getElementById("btn_reset");
+  const gridContainer = document.getElementById("grid-container");
+  resetbtn.addEventListener("click", () => {
+    gameBoard.board.fill(null);
+    while (gridContainer.firstChild) {
+      gridContainer.removeChild(gridContainer.firstChild);
+    }
+    gameBoard.renderBoard();
+    populateBoard();
+    displayResult.innerHTML = "";
+    gameEnded = false;
+    player1.round = true
+    player2.round = false
+  });
 
-    resetbtn.addEventListener("click", ()=> {
-      gameBoard.board.fill(null)
-      while (gridContainer.firstChild) {
-        gridContainer.removeChild(gridContainer.firstChild);
-      }
-      
-      gameBoard.renderBoard();
-      populateBoard();
-      displayResult.innerHTML = ""
-      gameEnded = false;
-
-    })    
-  })()
-
-  return {populateBoard}
-
-
+  return { populateBoard };
 })();
 
-displayController.populateBoard()
+displayController.populateBoard();
 
 const Player = (name, symbol, round) => {
   return {
