@@ -1,7 +1,7 @@
 const gameBoard = (() => {
   let board = new Array(9).fill(null);
   // Render game board at the start of the game
-  const renderBoard = (() => {
+  const renderBoard = () => {
     const gridContainer = document.querySelector(".grid-container");
     let i = 0;
     for (i = 0; i < board.length; i++) {
@@ -13,7 +13,9 @@ const gameBoard = (() => {
       newBox.innerHTML = board[i];
       gridContainer.appendChild(newBox);
     }
-  })();
+  };
+
+  renderBoard()
 
   // Return true if winning combination is met
   let winningCombination = (symbol) => {
@@ -40,6 +42,7 @@ const gameBoard = (() => {
   return {
     board,
     winningCombination,
+    renderBoard
   };
 })();
 
@@ -47,7 +50,7 @@ const displayController = (() => {
   let gameEnded = false;
 
   // Add event listeners that populate the board array depending on players round. If gameEnded = true, don't trigger the listeners.
-  const populateBoard = (() => {
+  const populateBoard = () => {
     const allFields = document.querySelectorAll(".container");
     allFields.forEach((field) => {
       field.addEventListener("click", () => {
@@ -70,11 +73,11 @@ const displayController = (() => {
         }
       });
     });
-  })();
-
+  };
+  const displayResult = document.getElementById("result");
   // Check if winningCombination is met. If yes - returns innerHTML and gameEnded = true
   const checkWinner = () => {
-    const displayResult = document.getElementById("result");
+    
     if (gameBoard.winningCombination(player1.symbol)) {
       displayResult.innerHTML = `The winner is... ${player1.name}`;
       gameEnded = true;
@@ -88,7 +91,32 @@ const displayController = (() => {
       gameEnded = true;
     }
   };
+
+  const handleButtons = (() => {
+    const resetbtn = document.getElementById("btn_reset")
+    const gridContainer = document.getElementById("grid-container")
+    const box = document.querySelector(".container")
+
+    resetbtn.addEventListener("click", ()=> {
+      gameBoard.board.fill(null)
+      while (gridContainer.firstChild) {
+        gridContainer.removeChild(gridContainer.firstChild);
+      }
+      
+      gameBoard.renderBoard();
+      populateBoard();
+      displayResult.innerHTML = ""
+      gameEnded = false;
+
+    })    
+  })()
+
+  return {populateBoard}
+
+
 })();
+
+displayController.populateBoard()
 
 const Player = (name, symbol, round) => {
   return {
