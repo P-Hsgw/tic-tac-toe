@@ -103,8 +103,8 @@ const displayController = (() => {
     populateBoard();
     displayResult.innerHTML = "";
     gameEnded = false;
-    player1.round = true
-    player2.round = false
+    player1.round = true;
+    player2.round = false;
   });
 
   return { populateBoard };
